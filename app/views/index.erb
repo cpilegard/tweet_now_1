@@ -1,0 +1,7 @@
+<div class="container">
+  <% if @tweets %>
+    <% @tweets.each do |tweet| %>
+      <p><%= tweet.text %></p>
+    <% end %>
+  <% end %>
+</div>
