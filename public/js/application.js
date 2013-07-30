@@ -1,16 +1,18 @@
 $(document).ready(function() {
-
-  if ( $("#username").length > 0 ) { 
-    var username = $('#username').text();
-    console.log(username);
+  $('form').on('submit', function(e) {
+    e.preventDefault();
+    $('form').hide();
+    $('.container').append("<p id='status'>tweeting......</p>");
     $.ajax({
-    url: "/" + username,
-    type: "post"
+      url: '/tweet',
+      type: 'post',
+      data: { content: $('#content').val() }
     }).done(function(result) {
-      for (i=0; i < result.length; i++) {
-        $('.container').append('<p>'+ result[i] +'</p>')
-      }
-      $('#loading').hide();
+      $('#status').hide();
+      $('.container').append('success');
+    }).fail(function(result) {
+      $('#status').hide();
+      $('.container').append('failed');
     });
-  }
+  });
 });
